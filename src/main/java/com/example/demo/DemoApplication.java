@@ -26,8 +26,8 @@ public class DemoApplication {
 
 //	Insert customer method using PostMapping
 	@PostMapping("/post/insert")
-	public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
-		customer.setCustomerID(countID++);
+	public ResponseEntity<?> createCustomer(@RequestBody CustomerController customerController) {
+		Customer customer = new Customer(countID++, customerController.getCustomerAge(), customerController.getCustomerName(), customerController.getCustomerGender(), customerController.getCustomerAddress());
 		customers.add(customer);
 		return new ResponseEntity<>(new CustomerDate(
 				"This record was successfully created", customer,"OK",LocalDateTime.now()
@@ -78,10 +78,14 @@ public class DemoApplication {
 
 // Update customer by ID
 	@PutMapping("/update/customerID={customerID}")
-	public ResponseEntity<?> updateCustomerByID(@PathVariable(value = "customerID") int customerID, @RequestBody Customer customer){
+	public ResponseEntity<?> updateCustomerByID(@PathVariable(value = "customerID") int customerID, @RequestBody CustomerController customerController){
 		for (Customer cus: customers
 		) {
 			if(cus.getCustomerID() == customerID){
+				cus.setCustomerAge(customerController.getCustomerAge());
+				cus.setCustomerName(customerController.getCustomerName());
+				cus.setCustomerGender(customerController.getCustomerGender());
+				cus.setCustomerAddress(customerController.getCustomerAddress());
 				return new ResponseEntity<>(new CustomerDate(
 						"You're update successfully", cus,"OK",LocalDateTime.now()
 				), HttpStatus.OK);
