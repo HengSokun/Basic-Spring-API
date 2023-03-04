@@ -21,7 +21,7 @@ public class DemoApplication {
 	public DemoApplication(){
 		customers.add(new Customer(1, 25, "Heng", "M", "Phnom Penh"));
 		customers.add(new Customer(2, 29, "Thong", "M", "Siem Reap"));
-		customers.add(new Customer(2, 21, "Anos", "M", "Kompong Cham"));
+		customers.add(new Customer(3, 21, "Anos", "M", "Kompong Cham"));
 	}
 
 //	Insert customer method using PostMapping
