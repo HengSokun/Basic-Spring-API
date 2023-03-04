@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @SpringBootApplication
 @RestController
-@RequestMapping("/api/v1/customer")
+@RequestMapping("/api/v1/customers")
 public class DemoApplication {
 
 	static List<Customer> customers = new ArrayList<>();
@@ -21,7 +21,7 @@ public class DemoApplication {
 	public DemoApplication(){
 		customers.add(new Customer(1, 25, "Heng", "M", "Phnom Penh"));
 		customers.add(new Customer(2, 29, "Thong", "M", "Siem Reap"));
-		customers.add(new Customer(2, 21, "Anos", "M", "Siem Reap"));
+		customers.add(new Customer(2, 21, "Anos", "M", "Kompong Cham"));
 	}
 
 //	Insert customer method using PostMapping
@@ -69,7 +69,7 @@ public class DemoApplication {
 		) {
 			if (Objects.equals(cus.customerName, customerName)){
 				return new ResponseEntity<>(new CustomerDate(
-						"This record was successfully created", cus,"OK",LocalDateTime.now()
+						"This record has found successfully", cus,"OK",LocalDateTime.now()
 				), HttpStatus.OK);
 			}
 		}
@@ -89,14 +89,15 @@ public class DemoApplication {
 		} return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
+//	Remove customer by ID
 	@DeleteMapping("/delete/customerID={customerID}")
 	public ResponseEntity<?> deleteCustomerByID(@PathVariable(value = "customerID") int customerID){
 		for (Customer cus: customers
 		) {
 			if(cus.getCustomerID() == customerID){
-				customers.remove(customerID);
+				customers.remove(cus);
 				return new ResponseEntity<>(new CustomerDate(
-						"Congratulation your delete is successfully\"", cus,"OK",LocalDateTime.now()
+						"Congratulation your delete is successfully", cus,"OK",LocalDateTime.now()
 				), HttpStatus.OK);
 			};
 		} return new ResponseEntity<>(HttpStatus.NOT_FOUND);
